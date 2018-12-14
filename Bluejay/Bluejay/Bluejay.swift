@@ -520,6 +520,13 @@ public class Bluejay: NSObject {
             completion(.failure(BluejayError.notConnected))
         }
     }
+
+    func rawDisconnect(identifier: PeripheralIdentifier) {
+        let cbPeripherals = cbCentralManager.retrievePeripherals(withIdentifiers: [identifier.uuid])
+        for peripheral in cbPeripherals {
+            cbCentralManager.cancelPeripheralConnection(peripheral)
+        }
+    }
     
     /**
      Listen for notifications on the specified characteristic.
