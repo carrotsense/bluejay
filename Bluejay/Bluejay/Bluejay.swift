@@ -523,7 +523,7 @@ public class Bluejay: NSObject {
 
     func rawDisconnect(identifier: PeripheralIdentifier) {
         if let cbPeripheral = cbCentralManager.retrievePeripherals(withIdentifiers: [identifier.uuid]).first {
-            manager.cancelPeripheralConnection(cbPeripheral)
+            cbCentralManager.cancelPeripheralConnection(cbPeripheral)
             print("bluetoothplz cancelled???")
         }
     }
