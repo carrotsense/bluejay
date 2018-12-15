@@ -19,7 +19,7 @@ public class Bluejay: NSObject {
     // MARK: - Private Properties
     
     /// Internal reference to CoreBluetooth's CBCentralManager.
-    private var cbCentralManager: CBCentralManager!
+    public var cbCentralManager: CBCentralManager!
     
     /// List of weak references to objects interested in receiving notifications on Bluetooth connection events and state changes.
     private var observers = [WeakConnectionObserver]()
@@ -522,9 +522,9 @@ public class Bluejay: NSObject {
     }
 
     func rawDisconnect(identifier: PeripheralIdentifier) {
-        let cbPeripherals = cbCentralManager.retrievePeripherals(withIdentifiers: [identifier.uuid])
-        for peripheral in cbPeripherals {
-            cbCentralManager.cancelPeripheralConnection(peripheral)
+        if let cbPeripheral = cbCentralManager.retrievePeripherals(withIdentifiers: [identifier.uuid]).first {
+            manager.cancelPeripheralConnection(cbPeripheral)
+            print("bluetoothplz cancelled???")
         }
     }
     
